@@ -1,42 +1,49 @@
 const express = require('express');
 const path = require('path');
-
 const dotenv = require('dotenv');
-var favicon = require('serve-favicon')
+var favicon = require('serve-favicon');
+
 const app = express();
-app.use(favicon(path.join(__dirname, './public', 'favicon.ico')))
-const port = 3000
+const port = 3000;
 
-dotenv.config({ path:'./.env'})
+// Load environment variables
+dotenv.config({ path: './.env' });
 
-app.set("views", __dirname + "/views");
-app.set('view engine','hbs');
+// Set views folder correctly
+app.set('views', path.join(__dirname, 'views'));
 
+// Set view engine to Handlebars
+app.set('view engine', 'hbs');
 
-const publicDirectory = path.join(__dirname,'./public')
+// Serve static files (like images, CSS, etc.)
+const publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory));
 
+// Serve favicon
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
+// Define routes
 app.get('/', (req, res) => {
-    res.render("index")
+    res.render("index"); // render index.hbs
 });
 
 app.get('/notices', (req, res) => {
-  res.render("notices")
+  res.render("notices"); // render notices.hbs
 });
 
 app.get('/gallery', (req, res) => {
-  res.render("gallery")
+  res.render("gallery"); // render gallery.hbs
 });
 
 app.get('/memberlist', (req, res) => {
-  res.render("members_list")
+  res.render("members_list"); // render members_list.hbs
 });
 
 app.get('/about', (req, res) => {
-  res.render("about")
+  res.render("about"); // render about.hbs
 });
 
+// Start the server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Server is running on port ${port}`);
 });
