@@ -9,7 +9,7 @@ const port = 3000
 
 dotenv.config({ path:'./.env'})
 
-
+app.set("views", __dirname + "/views");
 app.set('view engine','hbs');
 
 
