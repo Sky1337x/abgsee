@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/index.css?v=1.5">
     <title>gallery</title>
 </head>
-<body>
+<body style="background-color: green;">
     <div class="colorbar">
         <div style="background-color:#7cf9f3 ;width:14.28%;"></div>
         <div style="background-color:#ff6501 ;width:14.28%;"></div>
@@ -28,6 +28,31 @@
             <a href="/memberlist" style="padding-right: 8px;"><button class="button-name" role="button">सदस्य सूची</button></a> 
             <a href="/about" style="padding-right: 8px;"><button class="button-name" role="button">हमारे बारे में</button></a>
     </div>
+
+    <div class="simple-carousel">
+        <img class="carousel-img" src="/images/gallery1.jpg" alt="Image 1" style="display:block;">
+        <img class="carousel-img" src="/images/gallery2.jpg" alt="Image 2" style="display:none;">
+        <img class="carousel-img" src="/images/gallery3.jpg" alt="Image 3" style="display:none;">
+        <button class="carousel-btn prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="carousel-btn next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+    <script>
+  let current = 0;
+  const imgs = document.querySelectorAll('.carousel-img');
+  function showSlide(n) {
+    imgs[current].style.display = 'none';
+    current = (n + imgs.length) % imgs.length;
+    imgs[current].style.display = 'block';
+  }
+  function changeSlide(dir) {
+    showSlide(current + dir);
+  }
+  // --- Autoplay ---
+  setInterval(() => {
+    changeSlide(1);
+  }, 3000); // Change image every 3 seconds
+</script>
+
     
 </body>
 </html>
