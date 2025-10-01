@@ -243,6 +243,50 @@
   .carousel-img { height: 160px; }
 }
 
+.slideshow-container {
+  position: relative;
+  margin: 24px auto;
+  max-width: 900px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.10);
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+.slide {
+  display: none;
+}
+.slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 45%;
+  width: auto;
+  padding: 12px;
+  color: #333;
+  font-weight: bold;
+  font-size: 22px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background: rgba(255,255,255,0.7);
+}
+.next { right: 0; border-radius: 3px 0 0 3px; }
+.prev { left: 0; }
+.fade { animation: fadein 1s; }
+@keyframes fadein {
+  from { opacity: 0.3 }
+  to { opacity: 1 }
+}
+@media only screen and (max-width: 700px) {
+  .slideshow-container {
+    max-width: 100%;
+    margin: 10px;
+  }
+}
+
      
   
 

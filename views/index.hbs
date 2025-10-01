@@ -56,8 +56,38 @@
             <a href="/memberlist" style="padding-right: 8px;"><button class="button-name" role="button">सदस्य सूची</button></a> 
             <a href="/about" style="padding-right: 8px;"><button class="button-name" role="button">हमारे बारे में</button></a>
     </div>
-      
 
+    <div class="slideshow-container">
+  <div class="slide fade">
+    <img src="/images/ashok_sah.jpeg" alt="Slide 1">
+  </div>
+  <div class="slide fade">
+    <img src="/images/faggan_singh.jpg" alt="Slide 2">
+  </div>
+  <div class="slide fade">
+    <img src="/images/grttr.png" alt="Slide 3">
+  </div>
+  <!-- Add more slides as desired -->
+  <a class="prev">&#10094;</a>
+  <a class="next">&#10095;</a>
+</div>
+<script>
+let slideIndex = 0;
+showSlides();
+function showSlides() {
+  let slides = document.getElementsByClassName("slide");
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 4000);
+}
+</script>
+
+
+      
 </body>
 
 </html>
