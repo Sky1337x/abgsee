@@ -57,37 +57,178 @@
             <a href="/about" style="padding-right: 8px;"><button class="button-name" role="button">हमारे बारे में</button></a>
     </div>
 
-    <div class="slideshow-container">
-  <div class="slide fade">
-    <img src="/images/ashok_sah.jpeg" alt="Slide 1">
-  </div>
-  <div class="slide fade">
-    <img src="/images/faggan_singh.jpg" alt="Slide 2">
-  </div>
-  <div class="slide fade">
-    <img src="/images/grttr.png" alt="Slide 3">
-  </div>
-  <!-- Add more slides as desired -->
-  <a class="prev">&#10094;</a>
-  <a class="next">&#10095;</a>
+    <div class="hero-carousel">
+        <div class="carousel-track">
+            <div class="carousel-slide active">
+                <img src="/images/gallery1.jpg" alt="Slide 1">
+                <div class="carousel-overlay"></div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/images/gallery2.jpg" alt="Slide 2">
+                <div class="carousel-overlay"></div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/images/gallery3.jpg" alt="Slide 3">
+                <div class="carousel-overlay"></div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/images/ashok_sah.jpeg" alt="Slide 4">
+                <div class="carousel-overlay"></div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/images/faggan_singh.jpg" alt="Slide 5">
+                <div class="carousel-overlay"></div>
+            </div>
+        </div>
+        <button class="carousel-control prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="carousel-control next" onclick="moveSlide(1)">&#10095;</button>
+        <div class="carousel-indicators"></div>
+    </div>
+
+    <div class="updates-section">
+    <div class="updates-header">
+        <h2>ताजा सूचना</h2>
+        <div class="header-line"></div>
+    </div>
+    
+    <div class="updates-scroll-container">
+        <div class="update-card">
+            <div class="update-image">
+                <img src="/images/gallery1.jpg" alt="Update 1">
+                <div class="update-date">15 सितंबर 2025</div>
+            </div>
+            <div class="update-content">
+                <h3>राष्ट्रीय सम्मेलन 2025</h3>
+                <p>अखिल भारतीय गोंड आदिवासी संघ का वार्षिक राष्ट्रीय सम्मेलन नई दिल्ली में आयोजित किया जाएगा। सभी सदस्यों से उपस्थित रहने का अनुरोध है।</p>
+                <a href="#" class="read-more">और पढ़ें →</a>
+            </div>
+        </div>
+
+        <div class="update-card">
+            <div class="update-image">
+                <img src="/images/gallery2.jpg" alt="Update 2">
+                <div class="update-date">10 सितंबर 2025</div>
+            </div>
+            <div class="update-content">
+                <h3>नई सदस्यता अभियान</h3>
+                <p>संघ द्वारा नई सदस्यता अभियान की शुरुआत की गई है। इच्छुक सदस्य अपना पंजीकरण करवा सकते हैं।</p>
+                <a href="#" class="read-more">और पढ़ें →</a>
+            </div>
+        </div>
+
+        <div class="update-card">
+            <div class="update-image">
+                <img src="/images/gallery3.jpg" alt="Update 3">
+                <div class="update-date">5 सितंबर 2025</div>
+            </div>
+            <div class="update-content">
+                <h3>शैक्षिक सहायता कार्यक्रम</h3>
+                <p>आदिवासी छात्रों के लिए शैक्षिक सहायता कार्यक्रम की घोषणा। योग्य छात्र छात्रवृत्ति के लिए आवेदन कर सकते हैं।</p>
+                <a href="#" class="read-more">और पढ़ें →</a>
+            </div>
+        </div>
+
+        <div class="update-card">
+            <div class="update-image">
+                <img src="/images/ashok_sah.jpeg" alt="Update 4">
+                <div class="update-date">1 सितंबर 2025</div>
+            </div>
+            <div class="update-content">
+                <h3>सांस्कृतिक महोत्सव</h3>
+                <p>गोंड संस्कृति और परंपराओं को बढ़ावा देने के लिए सांस्कृतिक महोत्सव का आयोजन किया जाएगा।</p>
+                <a href="#" class="read-more">और पढ़ें →</a>
+            </div>
+        </div>
+
+        <div class="update-card">
+            <div class="update-image">
+                <img src="/images/faggan_singh.jpg" alt="Update 5">
+                <div class="update-date">28 अगस्त 2025</div>
+            </div>
+            <div class="update-content">
+                <h3>युवा नेतृत्व कार्यक्रम</h3>
+                <p>युवाओं को नेतृत्व प्रशिक्षण देने के लिए विशेष कार्यक्रम का आयोजन। रजिस्ट्रेशन जल्द शुरू होंगे।</p>
+                <a href="#" class="read-more">और पढ़ें →</a>
+            </div>
+        </div>
+
+        <div class="update-card">
+            <div class="update-image">
+                <img src="/images/grttr.png" alt="Update 6">
+                <div class="update-date">25 अगस्त 2025</div>
+            </div>
+            <div class="update-content">
+                <h3>स्वास्थ्य शिविर</h3>
+                <p>आदिवासी समुदाय के लिए निःशुल्क स्वास्थ्य जांच शिविर का आयोजन विभिन्न जिलों में किया जाएगा।</p>
+                <a href="#" class="read-more">और पढ़ें →</a>
+            </div>
+        </div>
+    </div>
 </div>
-<script>
-let slideIndex = 0;
-showSlides();
-function showSlides() {
-  let slides = document.getElementsByClassName("slide");
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}
-  slides[slideIndex-1].style.display = "block";
-  setTimeout(showSlides, 4000);
-}
-</script>
 
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicatorsContainer = document.querySelector('.carousel-indicators');
+        let autoplayInterval;
 
-      
+        // Create indicators
+        slides.forEach((_, index) => {
+            const indicator = document.createElement('div');
+            indicator.className = 'carousel-indicator' + (index === 0 ? ' active' : '');
+            indicator.onclick = () => goToSlide(index);
+            indicatorsContainer.appendChild(indicator);
+        });
+
+        const indicators = document.querySelectorAll('.carousel-indicator');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                indicators[index].classList.remove('active');
+            });
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function moveSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+            updateSlide();
+            resetAutoplay();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
+            resetAutoplay();
+        }
+
+        function autoplay() {
+            autoplayInterval = setInterval(() => {
+                moveSlide(1);
+            }, 4000);
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoplayInterval);
+            autoplay();
+        }
+
+        // Start autoplay
+        autoplay();
+
+        // Pause on hover
+        document.querySelector('.hero-carousel').addEventListener('mouseenter', () => {
+            clearInterval(autoplayInterval);
+        });
+
+        document.querySelector('.hero-carousel').addEventListener('mouseleave', () => {
+            autoplay();
+        });
+    </script>
+     
 </body>
 
 </html>
