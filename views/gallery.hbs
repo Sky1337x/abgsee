@@ -29,30 +29,166 @@
             <a href="/about" style="padding-right: 8px;"><button class="button-name" role="button">हमारे बारे में</button></a>
     </div>
 
-    <div class="simple-carousel">
-        <img class="carousel-img" src="/images/gallery1.jpg" alt="Image 1" style="display:block;">
-        <img class="carousel-img" src="/images/gallery2.jpg" alt="Image 2" style="display:none;">
-        <img class="carousel-img" src="/images/gallery3.jpg" alt="Image 3" style="display:none;">
-        <button class="carousel-btn prev" onclick="changeSlide(-1)">&#10094;</button>
-        <button class="carousel-btn next" onclick="changeSlide(1)">&#10095;</button>
+<div class="gallery-page-section">
+    <div class="gallery-container">
+        <div class="gallery-header">
+            <h1>फोटो गैलरी</h1>
+            <p>अखिल भारतीय गोंड आदिवासी संघ की गतिविधियों और कार्यक्रमों की झलकियां</p>
+        </div>
+
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p>चित्र लोड हो रहे हैं...</p>
+        </div>
+
+        <div class="gallery-filters" id="galleryFilters" style="display: none;">
+            <button class="filter-btn active" data-filter="all">सभी</button>
+            <button class="filter-btn" data-filter="events">कार्यक्रम</button>
+            <button class="filter-btn" data-filter="meetings">बैठकें</button>
+            <button class="filter-btn" data-filter="cultural">सांस्कृतिक</button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid"></div>
     </div>
-    <script>
-  let current = 0;
-  const imgs = document.querySelectorAll('.carousel-img');
-  function showSlide(n) {
-    imgs[current].style.display = 'none';
-    current = (n + imgs.length) % imgs.length;
-    imgs[current].style.display = 'block';
-  }
-  function changeSlide(dir) {
-    showSlide(current + dir);
-  }
-  // --- Autoplay ---
-  setInterval(() => {
-    changeSlide(1);
-  }, 3000); // Change image every 3 seconds
+</div>
+
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+    </button>
+    <div class="lightbox-content">
+        <img id="lightbox-img" src="" alt="">
+        <div class="lightbox-info">
+            <h3 id="lightbox-title"></h3>
+            <p id="lightbox-desc"></p>
+        </div>
+    </div>
+    <button class="lightbox-prev" onclick="navigateLightbox(-1)">❮</button>
+    <button class="lightbox-next" onclick="navigateLightbox(1)">❯</button>
+</div>
+
+<script>
+    let allImages = [];
+    let currentImageIndex = 0;
+
+    // Load images from server
+    async function loadImagesFromServer() {
+        try {
+            const response = await fetch('/api/gallery-images');
+            const data = await response.json();
+            
+            if (data.success && data.images.length > 0) {
+                allImages = data.images;
+                renderGallery(allImages);
+            } else {
+                document.getElementById('loadingSpinner').innerHTML = 
+                    '<p style="color: #718096;">कोई चित्र नहीं मिला।</p>' +
+                    '<p style="color: #4a5568; font-size: 0.9rem;">चित्र जोड़ने के लिए उन्हें <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;">/public/images/gallery/</code> फ़ोल्डर में अपलोड करें</p>' +
+                    '<p style="color: #4a5568; font-size: 0.85rem; margin-top: 1rem;">फ़ाइल नाम प्रारूप: <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;">category_title_location.jpg</code></p>' +
+                    '<p style="color: #4a5568; font-size: 0.85rem;">उदाहरण: <code style="background:#e2e8f0;padding:2px 6px;border-radius:4px;">events_conference_delhi.jpg</code></p>';
+            }
+        } catch (error) {
+            console.error('Error loading images:', error);
+            document.getElementById('loadingSpinner').innerHTML = 
+                '<p style="color: #e53e3e;">चित्र लोड करने में त्रुटि।</p>' +
+                '<p style="color: #718096; font-size: 0.9rem;">कृपया सर्वर कनेक्शन जांचें।</p>';
+        }
+    }
+
+    // Render gallery
+    function renderGallery(images) {
+        const galleryGrid = document.getElementById('galleryGrid');
+        galleryGrid.innerHTML = '';
+
+        images.forEach((img, index) => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.setAttribute('data-category', img.category);
+            
+            item.innerHTML = `
+                <div class="gallery-image">
+                    <img src="${img.src}" alt="${img.title}" loading="lazy">
+                    <div class="gallery-overlay">
+                        <div class="gallery-overlay-content">
+                            <h3>${img.title}</h3>
+                            <p>${img.location || 'स्थान'}</p>
+                            <button class="view-btn" onclick="openLightbox(${index})">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            galleryGrid.appendChild(item);
+        });
+
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('galleryFilters').style.display = 'flex';
+    }
+
+    // Filter functionality
+    document.addEventListener('DOMContentLoaded', () => {
+        loadImagesFromServer();
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+                const filteredImages = filter === 'all' 
+                    ? allImages 
+                    : allImages.filter(img => img.category === filter);
+                
+                renderGallery(filteredImages);
+            });
+        });
+    });
+
+    // Lightbox functions
+    function openLightbox(index) {
+        currentImageIndex = index;
+        const img = allImages[currentImageIndex];
+        
+        document.getElementById('lightbox-img').src = img.src;
+        document.getElementById('lightbox-title').textContent = img.title;
+        document.getElementById('lightbox-desc').textContent = img.location || '';
+        document.getElementById('lightbox').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    function navigateLightbox(direction) {
+        currentImageIndex += direction;
+        if (currentImageIndex < 0) currentImageIndex = allImages.length - 1;
+        if (currentImageIndex >= allImages.length) currentImageIndex = 0;
+
+        const img = allImages[currentImageIndex];
+        document.getElementById('lightbox-img').src = img.src;
+        document.getElementById('lightbox-title').textContent = img.title;
+        document.getElementById('lightbox-desc').textContent = img.location || '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+        if (e.target.id === 'lightbox') closeLightbox();
+    });
 </script>
 
-    
 </body>
 </html>
